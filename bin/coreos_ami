@@ -1,0 +1,22 @@
+#!/usr/bin/ruby
+#-*- mode: ruby; -*-
+
+require 'coreos_ami'
+require 'trollop'
+
+opts = Trollop::options do
+  opt :all,            'Show all AMIs'
+  opt :channel,        'Channel: stable, beta or alpha', type: :string, default: 'stable'
+  opt :release,        'Release version',                type: :string, default: 'current'
+  opt :virtualization, 'Virtualization type: hvm or pv', type: :string, default: 'hvm'
+end
+
+if opts[:all]
+  columns = [ 'name', 'pv', 'hvm' ]
+  amis = CoreOS.channel(opts[:channel]).amis(release: opts[:release])['amis'].map do |region|
+    region.values_at(*columns).join("\t")
+  end
+  puts columns.map(&:upcase).join("\t\t"), amis
+else
+  puts CoreOS.channel(opts[:channel]).ami(opts)
+end
