@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["rlister+gh@gmail.com"]
   spec.summary       = %q{Discover CoreOS AMIs.}
   spec.description   = %q{Discover CoreOS AMIs.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/rlister/coreos_ami"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
