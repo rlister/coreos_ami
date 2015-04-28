@@ -6,9 +6,10 @@ require 'trollop'
 
 opts = Trollop::options do
   opt :all,            'Show all AMIs'
-  opt :channel,        'Channel: stable, beta or alpha', type: :string, default: 'stable'
-  opt :release,        'Release version',                type: :string, default: 'current'
-  opt :virtualization, 'Virtualization type: hvm or pv', type: :string, default: 'hvm'
+  opt :channel,        'Channel: stable, beta or alpha',                          type: :string, default: 'stable'
+  opt :release,        'Release version',                                         type: :string, default: 'current'
+  opt :virtualization, 'Virtualization type: hvm or pv',                          type: :string, default: 'hvm'
+  opt :region,         'AWS region; defaults to AWS_DEFAULT_REGION or us-east-1', type: :string, short: 'R', default: nil
 end
 
 if opts[:all]
@@ -18,5 +19,5 @@ if opts[:all]
   end
   puts columns.map(&:upcase).join("\t\t"), amis
 else
-  puts CoreOS.channel(opts[:channel]).ami(opts)
+  puts CoreOS.channel(opts[:channel]).ami(opts.select { |_,v| not v.nil? })
 end
