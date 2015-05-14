@@ -6,7 +6,7 @@ class CoreOS
   DEFAULTS = {
     release: :current,
     virtualization: :hvm,
-    region: ENV['AWS_DEFAULT_REGION'] || 'us-east-1'
+    region: ENV['AWS_DEFAULT_REGION'] || ENV['AWS_REGION'] || 'us-east-1'
   }
 
   def initialize(channel = :stable)

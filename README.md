@@ -33,8 +33,9 @@ CoreOS.channel('stable').ami
 ```
 
 Default region will be set to environment variable
-`AWS_DEFAULT_REGION` (or `us-east-1` if empty). Virtualization type
-will default to `hvm`, and release will default to `current`.
+`AWS_DEFAULT_REGION` or `AWS_REGION` (or `us-east-1` if
+empty). Virtualization type will default to `hvm`, and release will
+default to `current`.
 
 Different channels, releases, and virtualization type may be
 requested:
