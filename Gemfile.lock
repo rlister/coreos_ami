@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    coreos_ami (0.0.1)
+    coreos_ami (0.0.3)
       trollop
 
 GEM
   remote: https://rubygems.org/
   specs:
     rake (10.4.2)
-    trollop (2.1.1)
+    trollop (2.1.2)
 
 PLATFORMS
   ruby
@@ -17,3 +17,6 @@ DEPENDENCIES
   bundler (~> 1.7)
   coreos_ami!
   rake (~> 10.0)
+
+BUNDLED WITH
+   1.11.2
