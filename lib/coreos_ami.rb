@@ -4,9 +4,9 @@ require 'json'
 
 class CoreOS
   DEFAULTS = {
-    release: :current,
+    release:        :current,
     virtualization: :hvm,
-    region: ENV['AWS_DEFAULT_REGION'] || ENV['AWS_REGION'] || 'us-east-1'
+    region:         ENV['AWS_DEFAULT_REGION'] || ENV['AWS_REGION'] || 'us-east-1'
   }
 
   def initialize(channel = :stable)
@@ -31,21 +31,24 @@ class CoreOS
 
   ## return hash of all AMIs for release version
   def amis(opt = {})
-    args = parse opt
-    path = [ base_url, args[:release].to_s, 'coreos_production_ami_all.json' ].join('/')
+    args = defaults_merge(opt)
+    path = [base_url, args[:release].to_s, 'coreos_production_ami_all.json'].join('/')
     JSON.parse(get(path))
   end
 
   ## return AMI name as string
   def ami(opt = {})
-    args = parse opt
-    path = [ base_url, args[:release].to_s, "coreos_production_ami_#{args[:virtualization]}_#{args[:region]}.txt" ].join('/')
+    args = defaults_merge(opt)
+    path = [base_url, args[:release].to_s, "coreos_production_ami_#{args[:virtualization]}_#{args[:region]}.txt"].join('/')
     get(path)
   end
 
   private
 
-  def parse(opt)
-    DEFAULTS.merge(opt) { |_, from_default, from_opt| from_opt || from_default }
+  ## ignore any nils in passed opts
+  def defaults_merge(opt)
+    DEFAULTS.merge(opt) do |_, from_default, from_opt|
+      from_opt || from_default
+    end
   end
 end
